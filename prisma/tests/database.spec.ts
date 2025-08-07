@@ -21,6 +21,7 @@ describe("Prisma Integration", () => {
       data: {
         pseudo: "testuser",
         email: "testuser@example.com",
+        password: "testpassword",
         date_inscription: new Date(),
       },
     });
@@ -75,6 +76,7 @@ describe("Prisma Integration", () => {
       data: {
         pseudo: "fanuser",
         email: "fan@example.com",
+        password: "testpassword",
         date_inscription: new Date(),
       },
     });
@@ -101,6 +103,7 @@ describe("Prisma Integration", () => {
       data: {
         pseudo: "uniqueuser",
         email: "unique@example.com",
+        password: "testpassword",
         date_inscription: new Date(),
       },
     });
@@ -109,6 +112,7 @@ describe("Prisma Integration", () => {
         data: {
           pseudo: "uniqueuser2",
           email: "unique@example.com",
+          password: "testpassword",
           date_inscription: new Date(),
         },
       }),

@@ -3,6 +3,8 @@
 import prisma from "./lib/client";
 import { faker } from "@faker-js/faker";
 import deleteSafely from "./helpers/deleteSafely";
+import argon2 from "argon2";
+import { randomBytes } from "crypto";
 import type {
   Categories,
   Users,
@@ -51,15 +53,20 @@ async function seed(skipCleanup = false) {
 
   // Seed Users
   const users: Users[] = await Promise.all(
-    Array.from({ length: USERS_TO_CREATE }).map((_, i) =>
-      prisma.users.create({
+    Array.from({ length: USERS_TO_CREATE }).map(async (_, i) => {
+      // Generate a random password (for dev seed; don't log in production)
+      const randomPassword = randomBytes(16).toString("hex");
+      const hashedPassword = await argon2.hash(randomPassword);
+
+      return prisma.users.create({
         data: {
           pseudo: faker.internet.username() + i,
           email: faker.internet.email().toLowerCase(),
+          password: hashedPassword,
           date_inscription: faker.date.past({ years: 2 }),
         },
-      }),
-    ),
+      });
+    }),
   );
 
   // Seed RestrictionsAlimentaires

@@ -1,0 +1,46 @@
+%% docs\erd.mmd
+
+erDiagram
+
+  Categories {
+    INT id PK
+    VARCHAR nom
+    VARCHAR slug
+  }
+
+  Recettes {
+    INT id PK
+    VARCHAR titre
+    INT duree
+    ENUM difficulte
+    TEXT instructions
+    INT categorie_id FK
+  }
+
+  RestrictionsAlimentaires {
+    INT id PK
+    VARCHAR type
+  }
+
+  Recette_Restriction {
+    INT recette_id PK, FK
+    INT restriction_id PK, FK
+  }
+
+  Users {
+    INT id PK
+    VARCHAR pseudo
+    VARCHAR email
+    DATE date_inscription
+  }
+
+  Favoris {
+    INT user_id PK, FK
+    INT recette_id PK, FK
+  }
+
+  Categories ||--o{ Recettes : "contient"
+  Recettes ||--o{ Favoris : "est_favori"
+  Users ||--o{ Favoris : "a_favori"
+  Recettes ||--o{ Recette_Restriction : "a"
+  RestrictionsAlimentaires ||--o{ Recette_Restriction : "est"

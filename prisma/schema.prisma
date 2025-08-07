@@ -1,0 +1,73 @@
+// prisma\schema.prisma
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma-client"
+  binaryTargets = ["native", "windows", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categories {
+  id       Int        @id @default(autoincrement())
+  nom      String     @db.VarChar(255)
+  slug     String     @unique(map: "slug") @db.VarChar(255)
+  Recettes Recettes[]
+}
+
+model Favoris {
+  user_id    Int
+  recette_id Int
+  Users      Users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "Favoris_ibfk_1")
+  Recettes   Recettes @relation(fields: [recette_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "Favoris_ibfk_2")
+
+  @@id([user_id, recette_id])
+  @@index([recette_id], map: "recette_id")
+}
+
+model Recette_Restriction {
+  recette_id               Int
+  restriction_id           Int
+  Recettes                 Recettes                 @relation(fields: [recette_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "Recette_Restriction_ibfk_1")
+  RestrictionsAlimentaires RestrictionsAlimentaires @relation(fields: [restriction_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "Recette_Restriction_ibfk_2")
+
+  @@id([recette_id, restriction_id])
+  @@index([restriction_id], map: "restriction_id")
+}
+
+model Recettes {
+  id                  Int                   @id @default(autoincrement())
+  titre               String                @db.VarChar(255)
+  duree               Int
+  difficulte          Recettes_difficulte
+  instructions        String                @db.Text
+  categorie_id        Int?
+  Favoris             Favoris[]
+  Recette_Restriction Recette_Restriction[]
+  Categories          Categories?           @relation(fields: [categorie_id], references: [id], onUpdate: Restrict, map: "Recettes_ibfk_1")
+
+  @@index([categorie_id], map: "categorie_id")
+}
+
+model RestrictionsAlimentaires {
+  id                  Int                   @id @default(autoincrement())
+  type                String                @unique(map: "type") @db.VarChar(255)
+  Recette_Restriction Recette_Restriction[]
+}
+
+model Users {
+  id               Int       @id @default(autoincrement())
+  pseudo           String    @unique(map: "pseudo") @db.VarChar(255)
+  email            String    @unique(map: "email") @db.VarChar(255)
+  date_inscription DateTime  @db.Date
+  Favoris          Favoris[]
+}
+
+enum Recettes_difficulte {
+  EASY   @map("1")
+  MEDIUM @map("2")
+  HARD   @map("3")
+}

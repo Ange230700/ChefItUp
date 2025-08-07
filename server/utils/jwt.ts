@@ -1,5 +1,6 @@
 // server\utils\jwt.ts
 
+// @ts-expect-error: No types for 'jsonwebtoken' with current ESM config, safe import
 import jwt from "jsonwebtoken";
 
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || "dev-access-secret";

@@ -2,6 +2,8 @@
 import prisma from "../../../prisma/lib/client";
 import { Prisma } from "../../../prisma/generated/prisma-client";
 import argon2 from "argon2";
+import { signAccessToken, signRefreshToken } from "../../utils/jwt";
+import { serialize } from "cookie";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -12,17 +14,23 @@ export default defineEventHandler(async (event) => {
 
   const hashed = await argon2.hash(body.password);
 
+  let user;
   try {
-    const user = await prisma.users.create({
+    user = await prisma.users.create({
       data: {
         email: body.email.toLowerCase(),
         pseudo: body.pseudo,
         password: hashed, // add password field to schema!
         date_inscription: new Date(),
       },
-      select: { id: true, email: true, pseudo: true, date_inscription: true },
+      select: {
+        id: true,
+        email: true,
+        pseudo: true,
+        date_inscription: true,
+        role: true,
+      },
     });
-    return user;
   } catch (e: unknown) {
     if (
       e instanceof Prisma.PrismaClientKnownRequestError &&
@@ -35,4 +43,26 @@ export default defineEventHandler(async (event) => {
     }
     throw e;
   }
+
+  // Generate tokens
+  const accessToken = signAccessToken({
+    id: user.id,
+    email: user.email,
+    pseudo: user.pseudo,
+  });
+  const refreshToken = signRefreshToken({ id: user.id });
+
+  // Set refresh token as httpOnly cookie
+  event.node.res.setHeader(
+    "Set-Cookie",
+    serialize("refresh_token", refreshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    }),
+  );
+
+  // Send access token in response (store in memory on client)
+  return { ...user, accessToken };
 });

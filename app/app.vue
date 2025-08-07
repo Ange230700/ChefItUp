@@ -2,6 +2,7 @@
 
 <template>
   <NuxtRouteAnnouncer />
+  <PrimeNavbar />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
@@ -9,5 +10,6 @@
 </template>
 
 <script setup lang="ts">
+import PrimeNavbar from "./components/PrimeNavbar.vue";
 import FooterComponent from "./components/FooterComponent.vue";
 </script>

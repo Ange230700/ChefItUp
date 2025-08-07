@@ -64,6 +64,7 @@ async function seed(skipCleanup = false) {
           email: faker.internet.email().toLowerCase(),
           password: hashedPassword,
           date_inscription: faker.date.past({ years: 2 }),
+          role: "USER",
         },
       });
     }),

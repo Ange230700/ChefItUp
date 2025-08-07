@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "axios",
     "categorie",
     "chefitup",
     "chefitupdb",
@@ -21,12 +22,15 @@
     "primeuix",
     "primevue",
     "prisma",
+    "refetched",
     "rootpassword",
     "someentity",
     "testpassword",
     "testuser",
+    "Unfavorited",
     "unhead",
     "uniqueuser",
+    "usetoast",
     "valibot",
     "VARCHAR"
   ]

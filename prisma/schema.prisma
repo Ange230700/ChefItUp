@@ -58,12 +58,18 @@ model RestrictionsAlimentaires {
   Recette_Restriction Recette_Restriction[]
 }
 
+enum UserRole {
+  USER    // regular user
+  ADMIN   // admin user
+}
+
 model Users {
   id               Int       @id @default(autoincrement())
   pseudo           String    @unique(map: "pseudo") @db.VarChar(255)
   email            String    @unique(map: "email") @db.VarChar(255)
   password         String    @db.VarChar(255)
   date_inscription DateTime  @db.Date
+  role             UserRole  @default(USER)
   Favoris          Favoris[]
 }
 

@@ -26,7 +26,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["@@/public/assets/css/main.css"],
   vite: {
     plugins: [tailwindcss()],
   },

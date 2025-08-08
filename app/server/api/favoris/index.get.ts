@@ -1,4 +1,4 @@
-// server\api\favoris\index.get.ts
+// app\server\api\favoris\index.get.ts
 
 import prisma from "../../../../prisma/lib/client";
 export default defineEventHandler(async () =>

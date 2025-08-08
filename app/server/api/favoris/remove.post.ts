@@ -1,4 +1,4 @@
-// server\api\favoris\remove.post.ts
+// app\server\api\favoris\remove.post.ts
 
 import prisma from "../../../../prisma/lib/client";
 

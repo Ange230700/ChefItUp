@@ -79,8 +79,10 @@ async function seed(skipCleanup = false) {
   ];
   const restrictions: RestrictionsAlimentaires[] = await Promise.all(
     restrictionTypes.slice(0, RESTRICTIONS_TO_CREATE).map((type) =>
-      prisma.restrictionsAlimentaires.create({
-        data: { type },
+      prisma.restrictionsAlimentaires.upsert({
+        where: { type },
+        update: {},
+        create: { type },
       }),
     ),
   );

@@ -1,4 +1,4 @@
-// server\api\restrictions\create.post.ts
+// app\server\api\restrictions\create.post.ts
 
 import prisma from "../../../../prisma/lib/client";
 export default defineEventHandler(async (event) => {

@@ -1,4 +1,4 @@
-// server\api\users\register.post.ts
+// app\server\api\users\register.post.ts
 import prisma from "../../../../prisma/lib/client";
 import { Prisma } from "../../../../prisma/generated/prisma-client";
 import argon2 from "argon2";

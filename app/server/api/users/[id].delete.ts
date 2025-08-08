@@ -1,4 +1,4 @@
-// server\api\users\[id].delete.ts
+// app\server\api\users\[id].delete.ts
 
 import prisma from "../../../../prisma/lib/client";
 export default defineEventHandler(async (event) => {

@@ -1,6 +1,6 @@
 // app\plugins\fetchUser.client.ts
 
-import { useUserStore } from "@/stores/userStore";
+import { useUserStore } from "../stores/userStore";
 import api from "../axios-instance";
 
 export default defineNuxtPlugin(async (_) => {

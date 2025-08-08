@@ -1,4 +1,4 @@
-// server\api\recettes\index.get.ts
+// app\server\api\recettes\index.get.ts
 
 import prisma from "../../../../prisma/lib/client";
 

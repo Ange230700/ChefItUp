@@ -1,8 +1,9 @@
 // app\axios-interceptor.ts
 import api from "./axios-instance";
-import router from "./router/index.js";
+import { useRouter } from "vue-router";
 
-const REFRESH_URL = "";
+const router = useRouter();
+const REFRESH_URL = "/api/users/refresh";
 
 api.interceptors.response.use(
   (r) => r,

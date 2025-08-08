@@ -1,4 +1,4 @@
-// server\api\recettes\create.post.ts
+// app\server\api\recettes\create.post.ts
 
 import prisma from "../../../../prisma/lib/client";
 export default defineEventHandler(async (event) => {

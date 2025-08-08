@@ -1,4 +1,4 @@
-// server\api\users\refresh.post.ts
+// app\server\api\users\refresh.post.ts
 
 import {
   verifyRefreshToken,

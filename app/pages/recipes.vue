@@ -1,4 +1,5 @@
-<!-- app\pages\RecipesPage.vue -->
+<!-- eslint-disable vue/multi-word-component-names -->
+<!-- app\pages\recipes.vue -->
 
 <template>
   <div class="container mx-auto p-8">

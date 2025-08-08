@@ -1,4 +1,4 @@
-// server\api\users\create.post.ts
+// app\server\api\users\create.post.ts
 
 import prisma from "../../../../prisma/lib/client";
 import argon2 from "argon2";

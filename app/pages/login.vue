@@ -1,9 +1,9 @@
-<!-- app/pages/RegisterPage.vue -->
+<!-- eslint-disable vue/multi-word-component-names -->
+<!-- app\pages\login.vue -->
 <template>
   <div class="container mx-auto max-w-md flex-1 p-8">
-    <h2 class="mb-4 text-2xl font-bold">Sign Up</h2>
-    <form @submit.prevent="register">
-      <input v-model="pseudo" placeholder="Username" class="input" required />
+    <h2 class="mb-4 text-2xl font-bold">Sign In</h2>
+    <form @submit.prevent="login">
       <input
         v-model="email"
         type="email"
@@ -19,7 +19,7 @@
         required
       />
       <button class="btn" :disabled="loading">
-        {{ loading ? "Registering..." : "Register" }}
+        {{ loading ? "Signing in..." : "Sign In" }}
       </button>
       <p v-if="error" class="mt-2 text-red-500">{{ error }}</p>
     </form>
@@ -33,7 +33,6 @@ import api from "../axios-instance";
 import { useUserStore } from "../stores/userStore";
 import axios from "axios";
 
-const pseudo = ref("");
 const email = ref("");
 const password = ref("");
 const loading = ref(false);
@@ -41,25 +40,24 @@ const error = ref("");
 const router = useRouter();
 const userStore = useUserStore();
 
-async function register() {
+async function login() {
   loading.value = true;
   error.value = "";
   try {
-    const res = await api.post("/api/users/register", {
-      pseudo: pseudo.value,
+    const res = await api.post("/api/users/login", {
       email: email.value,
       password: password.value,
     });
-    userStore.setUser(res.data); // set user in store
+    userStore.setUser(res.data);
     router.push("/home");
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
       error.value =
-        err.response?.data?.message || err.message || "Failed to register";
+        err.response?.data?.message || err.message || "Failed to login";
     } else if (err instanceof Error) {
       error.value = err.message;
     } else {
-      error.value = "Failed to register";
+      error.value = "Failed to login";
     }
   } finally {
     loading.value = false;

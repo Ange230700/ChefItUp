@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: [
+    "@pinia/nuxt",
     "@nuxt/content",
     "@nuxt/eslint",
     "@nuxt/image",
@@ -26,6 +27,7 @@ export default defineNuxtConfig({
       },
     },
   },
+  css: ["@@/public/assets/css/main.css"],
   vite: {
     plugins: [tailwindcss()],
   },

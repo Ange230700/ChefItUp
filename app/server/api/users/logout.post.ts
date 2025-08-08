@@ -1,4 +1,4 @@
-// server\api\users\logout.post.ts
+// app\server\api\users\logout.post.ts
 
 import { serialize } from "cookie";
 

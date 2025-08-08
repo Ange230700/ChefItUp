@@ -1,5 +1,4 @@
-// server\api\users\login.post.ts
-
+// app\server\api\users\login.post.ts
 import prisma from "../../../../prisma/lib/client";
 import argon2 from "argon2";
 import { signAccessToken, signRefreshToken } from "../../utils/jwt";

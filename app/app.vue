@@ -1,4 +1,4 @@
-<!-- app\App.vue -->
+<!-- app\app.vue -->
 
 <template>
   <NuxtRouteAnnouncer />

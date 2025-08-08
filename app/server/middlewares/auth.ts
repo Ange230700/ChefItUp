@@ -1,4 +1,4 @@
-// server\middleware\auth.ts
+// app\server\middlewares\auth.ts
 
 import type { H3Event } from "h3";
 import { parse } from "cookie";

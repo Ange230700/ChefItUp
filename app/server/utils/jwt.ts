@@ -1,4 +1,4 @@
-// server\utils\jwt.ts
+// app\server\utils\jwt.ts
 
 // @ts-expect-error: No types for 'jsonwebtoken' with current ESM config, safe import
 import jwt from "jsonwebtoken";

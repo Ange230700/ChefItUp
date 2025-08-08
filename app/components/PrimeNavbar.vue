@@ -50,13 +50,19 @@
 </template>
 
 <script setup lang="ts">
+import PrimeMenubar from "primevue/menubar";
+import PrimeButton from "primevue/button";
+import PrimeBadge from "primevue/badge";
 import { computed, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useNuxtApp } from "#app";
 
 import api from "../axios-instance";
 
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "../stores/userStore";
+
+const { isClient } = useNuxtApp();
 
 const toast = useToast();
 const router = useRouter();
@@ -65,6 +71,7 @@ const userStore = useUserStore();
 
 // Util: Get color mode from localStorage or fallback to system
 function getInitialColorMode(): "light" | "dark" {
+  if (!isClient) return "light";
   const stored = localStorage.getItem("colorMode");
   if (stored === "light" || stored === "dark") return stored;
   return window.matchMedia &&
@@ -117,7 +124,6 @@ const handleLogout = async (redirect = true) => {
 const menuItems = computed(() => {
   const items = [];
   if (!userStore.user) {
-    // Not logged in: show sign in/up
     items.unshift(
       {
         icon: "pi pi-user-plus",
@@ -131,11 +137,10 @@ const menuItems = computed(() => {
       },
     );
   } else {
-    // Logged in: show logout
     items.push({
       icon: "pi pi-sign-out",
       label: "Logout",
-      command: handleLogout,
+      command: () => handleLogout(true),
     });
   }
   return items;

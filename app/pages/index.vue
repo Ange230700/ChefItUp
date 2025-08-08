@@ -1,4 +1,5 @@
-<!-- app\pages\HomePage.vue -->
+<!-- eslint-disable vue/multi-word-component-names -->
+<!-- app\pages\index.vue -->
 
 <template>
   <div class="container mx-auto flex-1 p-8">

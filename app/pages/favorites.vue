@@ -1,4 +1,5 @@
-<!-- app\pages\FavoritesPage.vue -->
+<!-- eslint-disable vue/multi-word-component-names -->
+<!-- app\pages\favorites.vue -->
 
 <template>
   <div class="container mx-auto p-8">

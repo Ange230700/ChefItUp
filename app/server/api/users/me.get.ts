@@ -1,4 +1,4 @@
-// server\api\users\me.get.ts
+// app\server\api\users\me.get.ts
 
 import auth from "../../middlewares/auth";
 import prisma from "../../../../prisma/lib/client";

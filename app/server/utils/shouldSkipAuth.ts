@@ -1,4 +1,4 @@
-// server/utils/shouldSkipAuth.ts
+// app\server\utils\shouldSkipAuth.ts
 
 import type { H3Event } from "h3";
 

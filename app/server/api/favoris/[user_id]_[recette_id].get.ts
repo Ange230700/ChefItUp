@@ -1,4 +1,4 @@
-// server\api\favoris\[user_id]_[recette_id].get.ts
+// app\server\api\favoris\[user_id]_[recette_id].get.ts
 
 import prisma from "../../../../prisma/lib/client";
 
@@ -11,7 +11,9 @@ export default defineEventHandler(async (event) => {
       statusMessage: "Missing user_id_recette_id param.",
     });
   }
-  const [user_id, recette_id] = key.split("_").map(Number);
+  const parts = key.split("_");
+  const user_id = Number(parts[0]);
+  const recette_id = Number(parts[1]);
   if (isNaN(user_id) || isNaN(recette_id)) {
     throw createError({
       statusCode: 400,
@@ -19,6 +21,8 @@ export default defineEventHandler(async (event) => {
     });
   }
   return prisma.favoris.findUnique({
-    where: { user_id_recette_id: { user_id, recette_id } },
+    where: {
+      user_id_recette_id: { user_id, recette_id },
+    },
   });
 });
